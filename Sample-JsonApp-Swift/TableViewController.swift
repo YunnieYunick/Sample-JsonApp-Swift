@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class TableViewController: UITableViewController {
     
+   var selectedNum:Int = 0
+
    let filepath = Bundle.main.path(forResource: "data", ofType: "json")
    var json = JSON([])
 
@@ -42,11 +44,26 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        cell.textLabel?.text = String(describing: json["test"][indexPath.row]["key"])
+        cell.textLabel?.text = String(describing: json["test"][indexPath.row]["message"])
 
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedNum = Int(indexPath.row)
+        performSegue(withIdentifier: "next", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if(segue.identifier == "next"){
+            var view1: ViewController = segue.destination as! ViewController
+            view1.count = selectedNum
+            view1.json = json
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

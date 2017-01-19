@@ -1,6 +1,12 @@
-{"test":
-    [
-     {"key":"value1"},
-     {"key":"value2"}
-    ]
+{
+    "test": [
+             {
+             "id": 1,
+             "message": "Hello"
+             },
+             {
+             "id": 2,
+             "message": "World"
+             }
+             ]
 }
